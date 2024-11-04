@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useAuthStore } from '@/store/useAuthStore'
 
 // 已经登录
 const Authed = () => {
@@ -17,13 +18,12 @@ const NeedAuth = () => {
 
   useEffect(() => {
     navigate('/login')
-    console.log('登录信息已过期，请重新登录！', 'warning')
   }, [navigate])
   return <></>
 }
 
 const AuthRouter: FC<{ children: JSX.Element }> = ({ children }) => {
-  const token = localStorage.getItem('token')
+  const { accessToken: token } = useAuthStore()
   const { pathname } = useLocation()
 
   // 没有token，并且不是登录路由，则跳转到登录页面
