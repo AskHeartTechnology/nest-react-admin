@@ -4,6 +4,7 @@ import { Layout, theme } from 'antd'
 import { useGlobalStore } from '@/store/useGlobalStore'
 import AppLayoutNavBar from './NavBar'
 import AppLayoutHeader from './Header'
+import './index.scss'
 
 const { Header, Sider, Content } = Layout
 
@@ -14,7 +15,7 @@ const AppLayout: FC = () => {
   const { collapsed } = useGlobalStore()
 
   return (
-    <Layout>
+    <Layout className="layout-page">
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <AppLayoutNavBar />
       </Sider>
@@ -24,8 +25,8 @@ const AppLayout: FC = () => {
         </Header>
         <Content
           style={{
-            margin: '24px 16px',
-            padding: 24,
+            margin: 8,
+            padding: 16,
             minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,

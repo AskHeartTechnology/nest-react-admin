@@ -1,0 +1,26 @@
+.layout-page {
+  height: 100%;
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    ul {
+      flex: 1;
+    }
+  }
+
+  .nav-title {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .layout-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
