@@ -9,4 +9,9 @@ export class CommonController {
   checkHealth(): object {
     return this.commonService.checkHealth()
   }
+
+  @Get('code')
+  generateSvgCode(): object {
+    return this.commonService.generateCode()
+  }
 }
