@@ -1,23 +1,32 @@
 import { FC } from 'react'
 import { Button, Col, Form, Input, Row } from 'antd'
 import { LockOutlined, MailOutlined } from '@ant-design/icons'
-import { useGlobalStore } from '@/store/useGlobalStore'
 import { useAuthStore } from '@/store/useAuthStore'
 import { toast } from '@/utils/message'
 import { ILoginParams } from '@/types/auth'
 
 import './index.scss'
 import Logo from '/react.svg'
+import { EMAIL_REGEXP } from '@/utils/constant'
 
 const LoginPage: FC = () => {
-  const { login } = useAuthStore()
-  const { codeInfo, fetchCode } = useGlobalStore()
+  const [form] = Form.useForm<ILoginParams>()
+  const { codeInfo, fetchCode, login } = useAuthStore()
 
   const checkCode = (input: string) => {
     if (codeInfo) {
       return codeInfo.text.toLowerCase() === input.toLowerCase()
     } else {
       return false
+    }
+  }
+
+  const handleGetCode = async () => {
+    try {
+      const { email } = await form.validateFields(['email'])
+      fetchCode(false, email)
+    } catch (e) {
+      console.log(222, e)
     }
   }
 
@@ -48,6 +57,7 @@ const LoginPage: FC = () => {
             borderRadius: 20,
           }}
           autoComplete="off"
+          form={form}
           onFinish={handleLogin}
         >
           <div className="form-header">
@@ -56,7 +66,10 @@ const LoginPage: FC = () => {
           </div>
           <Form.Item<ILoginParams>
             name="email"
-            rules={[{ required: true, message: '请输入邮箱' }]}
+            rules={[
+              { required: true, message: '请输入邮箱地址' },
+              { pattern: EMAIL_REGEXP, message: '请输入正确的邮箱地址' },
+            ]}
           >
             <Input
               type="email"
@@ -90,7 +103,7 @@ const LoginPage: FC = () => {
                   )}`}
                   alt="code"
                   style={{ width: '100%', height: 50, cursor: 'pointer' }}
-                  onClick={fetchCode}
+                  onClick={handleGetCode}
                 />
               ) : (
                 <Button
@@ -101,7 +114,7 @@ const LoginPage: FC = () => {
                     top: 5,
                     right: 0,
                   }}
-                  onClick={fetchCode}
+                  onClick={handleGetCode}
                 >
                   获取验证码
                 </Button>

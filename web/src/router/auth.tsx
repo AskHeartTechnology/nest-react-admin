@@ -15,8 +15,11 @@ const Authed = () => {
 // 需要登录
 const NeedAuth = () => {
   const navigate = useNavigate()
+  const { fetchCode } = useAuthStore()
 
   useEffect(() => {
+    // 清空验证码
+    fetchCode(true)
     navigate('/login')
   }, [navigate])
   return <></>
