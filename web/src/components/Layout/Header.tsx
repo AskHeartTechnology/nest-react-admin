@@ -1,11 +1,18 @@
 import { FC } from 'react'
 import { Button, Space } from 'antd'
-import { useAuthStore } from '@/store/useAuthStore'
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+import {
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  MoonOutlined,
+  SunOutlined,
+} from '@ant-design/icons'
 import { useGlobalStore } from '@/store/useGlobalStore'
+import { useThemeStore } from '@/store/useThemeStore'
+import { useAuthStore } from '@/store/useAuthStore'
 
 const AppLayoutHeader: FC = () => {
-  const { collapsed, changeCollapsed, changeThemeStyle } = useGlobalStore()
+  const { collapsed, changeCollapsed } = useGlobalStore()
+  const { themeStyle, changeThemeStyle } = useThemeStore()
   const { logout } = useAuthStore()
 
   return (
@@ -21,7 +28,19 @@ const AppLayoutHeader: FC = () => {
         }}
       />
       <Space size={20}>
-        <Button onClick={changeThemeStyle}>切换主题</Button>
+        {themeStyle === 'dark' ? (
+          <MoonOutlined
+            onClick={changeThemeStyle}
+            spin={true}
+            style={{ fontSize: 18 }}
+          />
+        ) : (
+          <SunOutlined
+            onClick={changeThemeStyle}
+            spin={true}
+            style={{ fontSize: 18 }}
+          />
+        )}
         <Button onClick={logout}>退出</Button>
       </Space>
     </div>
