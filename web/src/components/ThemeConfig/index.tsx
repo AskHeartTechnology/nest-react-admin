@@ -16,6 +16,14 @@ export const ThemeConfig: FC<ThemeConfigProps> = ({ children }) => {
     <ConfigProvider
       locale={zhCN}
       theme={{
+        token: {
+          colorPrimary: '#13c2c2',
+          colorInfo: '#13c2c2',
+          colorSuccess: '#45c207',
+          colorWarning: '#f2a406',
+          colorError: '#ff5555',
+          colorLink: '#539bff',
+        },
         algorithm:
           themeStyle === 'dark' ? theme.darkAlgorithm : theme.defaultAlgorithm,
       }}
