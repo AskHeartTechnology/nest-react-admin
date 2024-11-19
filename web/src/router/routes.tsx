@@ -6,7 +6,7 @@ import LazyLoading from '@/components/LazyLoading'
 import { AppRouteItem } from '@/types/router'
 
 export const lazyRoute = (path: string) => {
-  const Comp = lazy(() => import(`../pages/${path}`))
+  const Comp = lazy(() => import(/* @vite-ignore */ `../pages/${path}`))
   return (
     <Suspense fallback={<LazyLoading />}>
       <Comp />
